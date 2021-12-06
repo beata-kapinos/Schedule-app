@@ -1,0 +1,10 @@
+extends index.pug 
+block content 
+    if errorMessage
+        p #{errorMessage}
+    form(action="/login" method="POST")
+        label(for="email_address") User email *
+        input(type="email" id="email_address" name="email_address" value=data.email_address required)
+        label(for="day") Password * 
+        input(type="text" id="password" name="password" required) 
+        button(id="send" type="submit") ENVOYER

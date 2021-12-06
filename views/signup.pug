@@ -1,0 +1,19 @@
+extends index.pug 
+block content 
+    if errors
+        p The following errors occured: 
+            ul
+                each error in errors
+                    li= error.msg
+    form(action="/signup" method="POST")
+        label(for="lastname") Last name
+        input(type="text" id="lastname" name="lastname" value=data.lastname required)
+        label(for="name") Name
+        input(type="text" id="name" name="name" value=data.name required)
+        label(for="email_address") User email *
+        input(type="email" id="email_address" name="email_address" value=data.email_address required)
+        label(for="password") Password * 
+        input(type="password" id="password" name="password" required)
+        label(for="repeat_password") Repeat password * 
+        input(type="password" id="repeat_password" name="repeat_password" required) 
+        button(id="send" type="submit") ENVOYER

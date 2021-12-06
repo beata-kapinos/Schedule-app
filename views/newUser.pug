@@ -1,0 +1,15 @@
+extends index.pug 
+block content 
+    form(action="/users" method="POST")
+        label(for="last-name") Nom * 
+        input(type="text" id="last-name" name="lastname" required)
+        label(for="name") Prénom * 
+        input(type="text" id="name" name="firstname" required)
+        label(for="id") ID 
+        input(type="number" id="id" name="id")
+        label(for="email") Addresse mail * 
+        input(type="email" id="email" name="email" required)
+        label(for="password") Password * 
+        input(type="text" id="password" name="password" required)
+        button(id="send" type="submit") ENVOYER 
+            

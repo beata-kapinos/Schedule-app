@@ -1,0 +1,9 @@
+extends index.pug 
+block content 
+    ul 
+        each schedule in schedules
+            li ID user: #{schedule.ID_user}
+                p Day: #{schedule.day}
+                p Start at: #{schedule.start_at} 
+                p End at: #{schedule.end_at} 
+    a(href='http://localhost:3000/schedules/new') Add your shift

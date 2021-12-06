@@ -1,0 +1,8 @@
+extends index.pug 
+block content 
+    ul 
+        each shift in schedule
+            li ID : #{shift.user_id}
+                p Day: #{shift.day}
+                p Start at: #{shift.start_at}
+                p End at: #{shift.end_at}

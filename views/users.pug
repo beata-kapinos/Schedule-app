@@ -1,0 +1,12 @@
+extends index.pug 
+block content 
+    ul 
+        each user in users
+            li User ID: #{user.id}
+                p First name: #{user.firstname}
+                p Last name: #{user.lastname} 
+                p Email: #{user.email} 
+                p Password: #{user.password}
+        
+
+    
