@@ -1,15 +1,22 @@
 extends index.pug 
 block content 
-    if errorMessage
-        p #{errorMessage}
+    //- if errorMessage
+    //-     p #{errorMessage}
     form(action="/schedules" method="POST")
-        label(for="user_email") User email *
-        input(type="email" id="user_email" name="user_email" value=data.user_email required)
-        label(for="day") Day * 
-        input(type="text" id="day" name="day" value=data.day required)
-        label(for="start_at") Start at: * 
+        label(for="ID_user") User ID *
+        input(type="number" id="ID_user" name="ID_user" value=data.ID_user required)
+        label(for="day") Choose a day *
+            select(id="day" name="day")
+                option(value="1" selected="data.day === 1") 1
+                option(value="2" selected="data.day === 2") 2
+                option(value="3" selected="data.day === 3") 3
+                option(value="4" selected="data.day === 4") 4
+                option(value="5" selected="data.day === 5") 5
+                option(value="6" selected="data.day === 6") 6
+                option(value="7" selected="data.day === 7") 7
+        label(for="start_at") Start at: *
         input(type="time" id="start_at" name="start_at" value=data.start_at required)
         label(for="end_at") End at: *
         input(type="time" id="end_at" name="end_at" value=data.end_at required)
-        button(id="send" type="submit") ENVOYER 
-    a(href='http://localhost:3000/schedules') See schedules 
+        button(id="send" type="submit") ENVOYER
+    

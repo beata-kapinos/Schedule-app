@@ -1,3 +1,12 @@
 extends index.pug 
 block content 
-    p You chose user with an ID: #{user.id}
+    p You chose user with an ID: #{user.ID}
+    p Lastname: #{user.lastname}
+    p Name: #{user.name}
+    p Email address: #{user.email_address}
+    ul 
+        each schedule in schedules
+            li ID user: #{schedule.ID_user}
+                p Day: #{schedule.day}
+                p Start at: #{schedule.start_at} 
+                p End at: #{schedule.end_at}

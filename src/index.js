@@ -55,7 +55,7 @@ app.post(
 
         res.cookie('AuthToken', authToken)
 
-        res.redirect('/schedules')
+        res.redirect('/home')
       } else {
           res.render('login.pug', {data: req.body, errorMessage:'Email address or password is incorrect.'})
       }
@@ -64,11 +64,11 @@ app.post(
 )
 
 app.get (
-    '/schedules', async (req, res) => {
+    '/home', async (req, res) => {
       const client = await pool.connect()
       const result = await client.query('SELECT * FROM public."Schedules"')
       
-      res.render('schedules.pug', {schedules: result.rows})
+      res.render('home.pug', {schedules: result.rows})
       console.log(result.rows)
       client.release()
       }
@@ -102,8 +102,6 @@ app.post (
       if (value !== req.body.password) {
         throw new Error('Password confirmation does not match password');
       }
-
-      // Indicates the success of this synchronous custom validator
       return true;
     }),
     async (req, res) => {
@@ -134,6 +132,39 @@ app.get (
     res.redirect('/login')
   }
 )
+
+app.get(
+  '/schedules',async (req, res) => {
+    const authenticatedUser = authTokens[req.cookies['AuthToken']]
+    const client = await pool.connect()
+    const result = await client.query('SELECT * FROM public."Schedules" WHERE "ID_user" = $1', [authenticatedUser.ID])
+    
+    res.render('schedules.pug', {schedules: result.rows, data: {}})
+    console.log(result.rows)
+    client.release()
+    }
+)
+
+app.post(
+  '/schedules',
+  async function (req,res) {
+    const authenticatedUser = authTokens[req.cookies['AuthToken']]
+    const client = await pool.connect()
+    const result = await client.query('INSERT INTO public."Schedules" ("ID_user", day, start_at, end_at) VALUES ($1, $2, $3, $4)',[authenticatedUser.ID, req.body.day, req.body.start_at, req.body.end_at])
+    res.redirect('/schedules')
+    client.release()
+  }
+)
+
+app.get(
+  '/schedules/:userId', async (req, res) => {
+    const userId = Number(req.params.userId)
+    const client = await pool.connect()
+    const outcome = await client.query('SELECT * FROM public."Users" WHERE "ID" = $1', [userId])
+    const result = await client.query('SELECT * FROM public."Schedules" WHERE "ID_user" = $1', [userId])
+  res.render('user.pug', {schedules: result.rows, user:outcome.rows[0]})
+  client.release()
+})
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
