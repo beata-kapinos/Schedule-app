@@ -5,7 +5,6 @@ const { body, validationResult } = require('express-validator')
 const {Pool} = require('pg')
 const app = express()
 const port = 3000
-
 const authTokens = {}
 
 app.use(express.json())
@@ -18,7 +17,6 @@ app.use((req, res, next) => {
   const protectedRoutes = ['/schedules']
 
   res.locals.authenticatedUser = authenticatedUser
-
   if (protectedRoutes.includes(req.path) && !authenticatedUser) {
     res.redirect('/login')
   } else {
@@ -50,7 +48,6 @@ app.post(
 
       if (result.rows.length === 1) {
         const authToken = crypto.randomBytes(30).toString('hex');
-
         authTokens[authToken] = result.rows[0]
 
         res.cookie('AuthToken', authToken)
@@ -151,6 +148,7 @@ app.post(
     const authenticatedUser = authTokens[req.cookies['AuthToken']]
     const client = await pool.connect()
     const result = await client.query('INSERT INTO public."Schedules" ("ID_user", day, start_at, end_at) VALUES ($1, $2, $3, $4)',[authenticatedUser.ID, req.body.day, req.body.start_at, req.body.end_at])
+   
     res.redirect('/schedules')
     client.release()
   }
@@ -162,8 +160,9 @@ app.get(
     const client = await pool.connect()
     const outcome = await client.query('SELECT * FROM public."Users" WHERE "ID" = $1', [userId])
     const result = await client.query('SELECT * FROM public."Schedules" WHERE "ID_user" = $1', [userId])
-  res.render('user.pug', {schedules: result.rows, user:outcome.rows[0]})
-  client.release()
+ 
+    res.render('user.pug', {schedules: result.rows, user:outcome.rows[0]})
+    client.release()
 })
 
 app.listen(port, () => {
