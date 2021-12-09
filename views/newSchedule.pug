@@ -1,7 +1,5 @@
 extends index.pug 
 block content 
-    //- if errorMessage
-    //-     p #{errorMessage}
     form(action="/schedules" method="POST")
         label(for="ID_user") User ID *
         input(type="number" id="ID_user" name="ID_user" value=data.ID_user required)
