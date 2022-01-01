@@ -1,6 +1,6 @@
 ## Schedule-app
 Project made during the INCODE web development course.
-## Check demo
+## Watch the demo
 https://github.com/beata-kapinos/Schedule-app/blob/main/demo_schedule_app.mp4
 ## Stack
 - Express.js
