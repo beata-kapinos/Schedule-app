@@ -1,7 +1,7 @@
 ## Schedule-app
 Project made during the INCODE web development course.
 ## Watch the demo
-https://github.com/beata-kapinos/Schedule-app/issues/1#issue-1114926212
+[click here](https://github.com/beata-kapinos/Schedule-app/issues/1#issue-1114926212)
 ## Stack
 - Express.js
 - PostgreSQL
