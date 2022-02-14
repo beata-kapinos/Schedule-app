@@ -9,6 +9,6 @@ Project made during the INCODE web development course.
 ## Features
 - sign up
 - login
-- add you shift
+- add your shift
 - check all schedules
 - check the schedules of the particular user
